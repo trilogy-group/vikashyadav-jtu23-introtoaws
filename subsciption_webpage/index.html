@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>vikashyadav-introtoaws</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1381.0.min.js"></script>
+</head>
+<body>
+    <h1>Vikash Yadav ImageProcessor Notifications Subscription</h1>
+    <form id="subscribeForm">
+        <label for="email">Enter Email Address:</label>
+        <input type="email" id="email" required>
+        <br>
+        <button type="submit">Subscribe</button>
+    </form>
+
+    <script>
+        // Function to handle form submission
+        function subscribe(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get the email address entered by the user
+            const email = document.getElementById('email').value;
+
+            // Subscribe the email address to the SNS topic using AWS SDK
+            const params = {
+                Protocol: 'email',
+                TopicArn: 'arn:aws:sns:us-east-1:280022023954:vikashyadav-introtoaws', // Replace with your actual topic ARN
+                Endpoint: email
+            };
+
+            // Initialize the Amazon Cognito credentials provider
+            AWS.config.region = 'us-east-1'; // Region
+            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                IdentityPoolId: 'us-east-1:f226caa2-4047-4770-8e7d-5d481de2efe3',
+            });
+
+            const sns = new AWS.SNS();
+
+            sns.subscribe(params, (err, data) => {
+                if (err) {
+                    console.error(err);
+                    alert('Subscription failed. Please try again later.');
+                } else {
+                    console.log(data);
+                    alert('Subscription successful!');
+                }
+            });
+        }
+
+        // Attach the subscribe function to the form submission event
+        const form = document.getElementById('subscribeForm');
+        form.addEventListener('submit', subscribe);
+    </script>
+</body>
+</html>
