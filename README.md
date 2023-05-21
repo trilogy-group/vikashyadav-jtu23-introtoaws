@@ -4,6 +4,8 @@ This is my assignment for AWS track of jTU-23
 ----
 ## **Final Output:**
 
+> Click here to see the [VIDEO DEMO FOR FINAL OUTPUT](https://drive.google.com/file/d/18PL9X1Sfo6T9JVdTaGkVM-kRg0HNfa24/view?usp=sharing)
+
 Upload an image to `images` folder in the source bucket, and see the thumbnails automatically getting generated in the `thumbnails` folder in destination bucket in 3 different sizes. `ImageProcessor` (a lambda function) does it automatically for you.
 
 > To access the `source bucket`, click here: [vikashyadav-source](https://s3.console.aws.amazon.com/s3/buckets/vikashyadav-source?region=us-east-1)<br>
